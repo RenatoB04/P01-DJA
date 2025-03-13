@@ -404,7 +404,7 @@ GameObject:
   - component: {fileID: 474616696}
   - component: {fileID: 474616695}
   m_Layer: 5
-  m_Name: Btn_Jogar
+  m_Name: BtnJogar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1077,7 +1077,7 @@ GameObject:
   - component: {fileID: 1201495344}
   - component: {fileID: 1201495343}
   m_Layer: 5
-  m_Name: Btn_Opcoes
+  m_Name: BtnOpcoes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1254,7 +1254,7 @@ GameObject:
   - component: {fileID: 1498356131}
   - component: {fileID: 1498356130}
   m_Layer: 5
-  m_Name: Btn_Creditos
+  m_Name: BtnCreditos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

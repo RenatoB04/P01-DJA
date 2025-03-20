@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: TileMadeiraB
+  m_Name: Casino_1
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 2057684300, guid: 8c237d5341e319d4588a4ddc64af87f0, type: 3}
+  m_Sprite: {fileID: 509050280, guid: 4e8cd19a2a015c144b3bc31895335133, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1

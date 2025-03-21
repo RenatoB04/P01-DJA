@@ -3637,8 +3637,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  minBounds: {x: -19.5, y: -5.5}
-  maxBounds: {x: 11.5, y: 5.5}
+  minBounds: {x: -19, y: -3}
+  maxBounds: {x: 10, y: 5.5}
 --- !u!50 &1596367518
 Rigidbody2D:
   serializedVersion: 5

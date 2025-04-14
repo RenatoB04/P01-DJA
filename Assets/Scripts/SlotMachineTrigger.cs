@@ -18,7 +18,6 @@ public class SlotMachineTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             jogadorPerto = true;
-            Debug.Log("Aproximaste-te da slot machine. Pressiona E para jogar.");
         }
     }
 

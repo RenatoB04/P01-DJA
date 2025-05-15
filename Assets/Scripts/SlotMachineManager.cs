@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -14,9 +15,9 @@ public class SlotMachineManager : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("SlotMachineManager começou");
         Time.timeScale = 1f;
         textoResultado.text = "";
+        textoResultado.gameObject.SetActive(false);
         botaoJogar.onClick.AddListener(TentarJogar);
         botaoVoltar.onClick.AddListener(() => SceneManager.LoadScene("Jogo"));
         AtualizarTextoDinheiro();
@@ -33,33 +34,67 @@ public class SlotMachineManager : MonoBehaviour
         else
         {
             textoResultado.text = "Saldo insuficiente!";
+            textoResultado.gameObject.SetActive(true);
         }
     }
 
     IEnumerator RodarSlots()
     {
         textoResultado.text = "";
+        textoResultado.gameObject.SetActive(false);
         botaoJogar.interactable = false;
 
+        // Iniciar rotação
         foreach (SlotReel coluna in colunas)
             StartCoroutine(coluna.Rolar());
 
         yield return new WaitForSeconds(1.5f);
 
-        Sprite s1 = colunas[0].GetSimboloDoMeio();
-        Sprite s2 = colunas[1].GetSimboloDoMeio();
-        Sprite s3 = colunas[2].GetSimboloDoMeio();
-
-        if (s1 == s2 && s2 == s3)
+        // Obter todos os símbolos das colunas
+        Sprite[][] grelha = new Sprite[3][];
+        for (int i = 0; i < 3; i++)
         {
-            textoResultado.text = "Ganhaste!";
-            GameManager.instancia.AdicionarDinheiro(250);
+            grelha[i] = colunas[i].simbolos.Select(img => img.sprite).ToArray();
+        }
+
+        int premioTotal = 0;
+
+        // Verificar 3 linhas horizontais
+        for (int linha = 0; linha < 3; linha++)
+        {
+            Sprite s1 = grelha[0][linha];
+            Sprite s2 = grelha[1][linha];
+            Sprite s3 = grelha[2][linha];
+
+            if (s1 == s2 && s2 == s3)
+            {
+                premioTotal += 150;
+            }
+        }
+
+        // Diagonal ↘
+        if (grelha[0][0] == grelha[1][1] && grelha[1][1] == grelha[2][2])
+        {
+            premioTotal += 300;
+        }
+
+        // Diagonal ↙
+        if (grelha[0][2] == grelha[1][1] && grelha[1][1] == grelha[2][0])
+        {
+            premioTotal += 300;
+        }
+
+        if (premioTotal > 0)
+        {
+            textoResultado.text = $"Ganhaste {premioTotal} moedas!";
+            GameManager.instancia.AdicionarDinheiro(premioTotal);
         }
         else
         {
             textoResultado.text = "Perdeste!";
         }
 
+        textoResultado.gameObject.SetActive(true);
         AtualizarTextoDinheiro();
         botaoJogar.interactable = true;
     }
@@ -68,4 +103,4 @@ public class SlotMachineManager : MonoBehaviour
     {
         textoDinheiro.text = "Moedas: " + GameManager.instancia.ObterDinheiro();
     }
-}   
+}

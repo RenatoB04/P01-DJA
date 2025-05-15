@@ -157,8 +157,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -256.93436, y: -63.151283}
-  m_SizeDelta: {x: -1941.4363, y: -640.9358}
+  m_AnchoredPosition: {x: -273.66266, y: -68.57494}
+  m_SizeDelta: {x: -1862.7616, y: -651.79}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &186515675
 MonoBehaviour:
@@ -173,7 +173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -252,10 +252,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1012605886}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 906, y: 280}
-  m_SizeDelta: {x: 695.8949, y: 361.0217}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -118, y: -226}
+  m_SizeDelta: {x: 695.8949, y: 361.02173}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &429562621
 CanvasRenderer:
@@ -469,8 +469,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 155.85312, y: -63.152023}
-  m_SizeDelta: {x: -1940.9064, y: -640.94}
+  m_AnchoredPosition: {x: 166.33728, y: -68.575}
+  m_SizeDelta: {x: -1862.2318, y: -651.79}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &567386729
 MonoBehaviour:
@@ -485,7 +485,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1110,10 +1110,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1738430372}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.5641, y: -0.2804}
-  m_SizeDelta: {x: 974.8069, y: 985.8636}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: -1.5624, y: -0.2819214}
+  m_SizeDelta: {x: 1039.5156, y: 39.30005}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1139779664
 MonoBehaviour:
@@ -1191,8 +1191,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -50.3594, y: -63.152}
-  m_SizeDelta: {x: -1939.1136, y: -640.94}
+  m_AnchoredPosition: {x: -55.348526, y: -68.57496}
+  m_SizeDelta: {x: -1861.563, y: -651.79}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1215240893
 MonoBehaviour:
@@ -1207,7 +1207,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1288,8 +1288,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2.9823, y: -33.2425}
-  m_SizeDelta: {x: 2122.4, y: 1061.2266}
+  m_AnchoredPosition: {x: 0.000045776, y: -0.28192}
+  m_SizeDelta: {x: 2516.9487, y: 1258.5059}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1262747954
 MonoBehaviour:
@@ -1313,7 +1313,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 1528110999138252676, guid: 247bccb4700ee4d45aca482cdabbd36d, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -2482,9 +2482,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1012605886}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -894, y: 418}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 130, y: -88}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1660057539 &9223372036854775807

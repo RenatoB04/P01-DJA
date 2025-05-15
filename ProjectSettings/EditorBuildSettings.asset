@@ -13,19 +13,22 @@ EditorBuildSettings:
     guid: 6a1cd82f1e85b4e4fbca5ae12d8641dc
   - enabled: 1
     path: Assets/Scenes/Jogo.unity
-    guid: 0b46c7a9926f67b448927f36494fe3a1
+    guid: 425a44d09138ad24a9b960704fc3bfb2
   - enabled: 1
     path: Assets/Scenes/Opcoes.unity
     guid: d7437290f73d8c64199a3390a2e9994d
   - enabled: 1
     path: Assets/Scenes/Creditos.unity
     guid: c1f9486542695e34eb8eacbf1821d397
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SlotScene.unity
     guid: 482f10ae346e30f4abca4267e16fefc7
   - enabled: 1
     path: Assets/Scenes/RodaScene.unity
     guid: 060a4efe7ad654047aedc37ae775a0d0
+  - enabled: 1
+    path: Assets/Scenes/SlotMachine.unity
+    guid: a8f78b7bbd00b8a428d6e5ec64f6dfff
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

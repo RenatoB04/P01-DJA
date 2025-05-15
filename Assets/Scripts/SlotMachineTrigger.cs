@@ -9,7 +9,7 @@ public class SlotMachineTrigger : MonoBehaviour
     {
         if (jogadorPerto && Input.GetKeyDown(KeyCode.E))
         {
-            SceneManager.LoadScene("SlotScene");
+            SceneManager.LoadScene("SlotMachine");
         }
     }
 

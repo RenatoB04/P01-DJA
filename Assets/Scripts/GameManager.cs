@@ -4,7 +4,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instancia;
 
-    public int dinheiro = 10000;
+    private int dinheiro = 1000;
 
     private void Awake()
     {
@@ -27,7 +27,8 @@ public class GameManager : MonoBehaviour
     public void RemoverDinheiro(int valor)
     {
         dinheiro -= valor;
-        if (dinheiro < 0) dinheiro = 0;
+        if (dinheiro < 0)
+            dinheiro = 0;
     }
 
     public int ObterDinheiro()

@@ -27,6 +27,9 @@ EditorBuildSettings:
     path: Assets/Scenes/RodaScene.unity
     guid: 060a4efe7ad654047aedc37ae775a0d0
   - enabled: 1
+    path: Assets/Scenes/BlackjackScene.unity
+    guid: fa5ecb14d71c66d40ace75f99786388d
+  - enabled: 1
     path: Assets/Scenes/SlotMachine.unity
     guid: a8f78b7bbd00b8a428d6e5ec64f6dfff
   m_configObjects:

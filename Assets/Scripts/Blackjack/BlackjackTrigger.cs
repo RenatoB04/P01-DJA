@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SlotMachineTrigger : MonoBehaviour
+public class BlackjackTrigger : MonoBehaviour
 {
     private bool jogadorPerto = false;
 
@@ -9,21 +9,21 @@ public class SlotMachineTrigger : MonoBehaviour
     {
         if (jogadorPerto && Input.GetKeyDown(KeyCode.E))
         {
-            SceneManager.LoadScene("SlotMachine");
+            SceneManager.LoadScene("BlackjackScene");
         }
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    void OnCollisionEnter2D(Collision2D collision)
     {
-        if (other.CompareTag("Player"))
+        if (collision.collider.CompareTag("Player"))
         {
             jogadorPerto = true;
         }
     }
 
-    void OnTriggerExit2D(Collider2D other)
+    void OnCollisionExit2D(Collision2D collision)
     {
-        if (other.CompareTag("Player"))
+        if (collision.collider.CompareTag("Player"))
         {
             jogadorPerto = false;
         }

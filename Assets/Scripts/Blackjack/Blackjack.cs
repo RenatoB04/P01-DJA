@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class Blackjack : MonoBehaviour
@@ -21,8 +22,8 @@ public class Blackjack : MonoBehaviour
     public TMP_Text txtMensagem;
     public TMP_Text txtTotalJogador;
     public TMP_Text txtTotalDealer;
+    public Button botaoVoltar;
 
-    private int saldo = 1000;
     private int apostaAtual = 0;
 
     private List<Carta> cartasJogador = new List<Carta>();
@@ -36,17 +37,24 @@ public class Blackjack : MonoBehaviour
         baralho.Inicializar();
         AtualizarUI();
         txtMensagem.text = "Insere uma aposta e clica em Jogar.";
+
+        if (botaoVoltar != null)
+        {
+            botaoVoltar.onClick.AddListener(VoltarAoJogo);
+        }
     }
 
     public void Jogar()
     {
-        if (!int.TryParse(inputAposta.text, out apostaAtual) || apostaAtual <= 0 || apostaAtual > saldo)
+        int saldoAtual = GameManager.instancia.ObterDinheiro();
+
+        if (!int.TryParse(inputAposta.text, out apostaAtual) || apostaAtual <= 0 || apostaAtual > saldoAtual)
         {
             txtMensagem.text = "Aposta inválida.";
             return;
         }
 
-        saldo -= apostaAtual;
+        GameManager.instancia.RemoverDinheiro(apostaAtual);
         jogoAtivo = true;
         dealerJogando = false;
 
@@ -83,7 +91,7 @@ public class Blackjack : MonoBehaviour
     {
         if (!jogoAtivo || dealerJogando) return;
 
-        dealerJogando = true; 
+        dealerJogando = true;
         StartCoroutine(DealerJoga());
     }
 
@@ -93,14 +101,14 @@ public class Blackjack : MonoBehaviour
         var imgVirada = handDealer.GetChild(1).GetComponent<Image>();
         imgVirada.sprite = cartasDealer[1].imagem;
         AtualizarUI();
-        
+
         while (CalcularTotal(cartasDealer) < 17)
         {
             yield return new WaitForSeconds(1f);
             DarCarta(cartasDealer, handDealer, true);
             AtualizarUI();
         }
-        
+
         int totalJ = CalcularTotal(cartasJogador);
         int totalD = CalcularTotal(cartasDealer);
         string resultado;
@@ -109,12 +117,12 @@ public class Blackjack : MonoBehaviour
         else if (totalD > 21 || totalJ > totalD)
         {
             resultado = "Ganhaste!";
-            saldo += apostaAtual * 2;
+            GameManager.instancia.AdicionarDinheiro(apostaAtual * 2);
         }
         else if (totalJ == totalD)
         {
             resultado = "Empate.";
-            saldo += apostaAtual;
+            GameManager.instancia.AdicionarDinheiro(apostaAtual);
         }
         else resultado = "Perdeste.";
 
@@ -158,7 +166,7 @@ public class Blackjack : MonoBehaviour
 
     void AtualizarUI()
     {
-        txtSaldo.text = "Saldo: " + saldo + "€";
+        txtSaldo.text = "Saldo: " + GameManager.instancia.ObterDinheiro();
         txtTotalJogador.text = "Total Jogador: " + CalcularTotal(cartasJogador);
 
         if (jogoAtivo && !dealerJogando)
@@ -170,5 +178,10 @@ public class Blackjack : MonoBehaviour
         {
             txtTotalDealer.text = "Total Dealer: " + CalcularTotal(cartasDealer);
         }
+    }
+
+    public void VoltarAoJogo()
+    {
+        SceneManager.LoadScene("Jogo");
     }
 }

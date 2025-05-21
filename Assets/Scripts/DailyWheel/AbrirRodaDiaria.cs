@@ -1,29 +1,29 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AbrirRodaDiaria : MonoBehaviour
 {
-    public GameObject painelRoda;
     private bool jogadorPerto = false;
 
     void Update()
     {
         if (jogadorPerto && Input.GetKeyDown(KeyCode.E))
         {
-            painelRoda.SetActive(true);
+            SceneManager.LoadScene("RodaScene");
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    void OnCollisionEnter2D(Collision2D collision)
     {
-        if (other.CompareTag("Player"))
+        if (collision.collider.CompareTag("Player"))
         {
             jogadorPerto = true;
         }
     }
 
-    private void OnTriggerExit2D(Collider2D other)
+    void OnCollisionExit2D(Collision2D collision)
     {
-        if (other.CompareTag("Player"))
+        if (collision.collider.CompareTag("Player"))
         {
             jogadorPerto = false;
         }

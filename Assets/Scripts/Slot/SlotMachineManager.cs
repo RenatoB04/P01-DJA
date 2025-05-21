@@ -43,14 +43,12 @@ public class SlotMachineManager : MonoBehaviour
         textoResultado.text = "";
         textoResultado.gameObject.SetActive(false);
         botaoJogar.interactable = false;
-
-        // Iniciar rotação
+        
         foreach (SlotReel coluna in colunas)
             StartCoroutine(coluna.Rolar());
 
         yield return new WaitForSeconds(1.5f);
-
-        // Obter todos os símbolos das colunas
+        
         Sprite[][] grelha = new Sprite[3][];
         for (int i = 0; i < 3; i++)
         {
@@ -59,7 +57,6 @@ public class SlotMachineManager : MonoBehaviour
 
         int premioTotal = 0;
 
-        // Verificar 3 linhas horizontais
         for (int linha = 0; linha < 3; linha++)
         {
             Sprite s1 = grelha[0][linha];
@@ -71,14 +68,12 @@ public class SlotMachineManager : MonoBehaviour
                 premioTotal += 150;
             }
         }
-
-        // Diagonal ↘
+        
         if (grelha[0][0] == grelha[1][1] && grelha[1][1] == grelha[2][2])
         {
             premioTotal += 300;
         }
 
-        // Diagonal ↙
         if (grelha[0][2] == grelha[1][1] && grelha[1][1] == grelha[2][0])
         {
             premioTotal += 300;

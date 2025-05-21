@@ -458,9 +458,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 828242161}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -866, y: 431}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 280, y: -102}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &639247549
@@ -2393,6 +2393,7 @@ MonoBehaviour:
   txtMensagem: {fileID: 1983876575}
   txtTotalJogador: {fileID: 1781398002}
   txtTotalDealer: {fileID: 1001105602}
+  botaoVoltar: {fileID: 6116522}
 --- !u!4 &1604479788
 Transform:
   m_ObjectHideFlags: 0
@@ -2924,9 +2925,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 828242161}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -565.88586, y: -351.99997}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 580.11, y: 176.37}
   m_SizeDelta: {x: 800.2283, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1983876574

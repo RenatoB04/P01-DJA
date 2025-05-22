@@ -95,81 +95,85 @@ public class RoletaController : MonoBehaviour
         return 1 - Mathf.Pow(1 - t, 3);
     }
 
-    void VerificarAposta(int resultado, int valorAposta)
+void VerificarAposta(int resultado, int valorAposta)
+{
+    string aposta = dropdownAposta.options[dropdownAposta.value].text;
+    bool ganhou = false;
+    int multiplicador = 0;
+
+    string cor = resultado == 0 ? "Verde" : NumeroPreto(resultado) ? "Preto" : "Vermelho";
+    
+    string paridade = "-";
+    if (resultado != 0)
+        paridade = resultado % 2 == 0 ? "Par" : "Ímpar";
+    
+    switch (aposta)
     {
-        string aposta = dropdownAposta.options[dropdownAposta.value].text;
-        bool ganhou = false;
-        int multiplicador = 0;
-
-        string cor = resultado == 0 ? "Verde" : NumeroPreto(resultado) ? "Preto" : "Vermelho";
-
-        switch (aposta)
-        {
-            case "Verde":
-                ganhou = resultado == 0;
-                multiplicador = 36;
-                break;
-            case "Preto":
-                ganhou = NumeroPreto(resultado);
-                multiplicador = 2;
-                break;
-            case "Vermelho":
-                ganhou = NumeroVermelho(resultado);
-                multiplicador = 2;
-                break;
-            case "Par":
-                ganhou = resultado != 0 && resultado % 2 == 0;
-                multiplicador = 2;
-                break;
-            case "Ímpar":
-                ganhou = resultado % 2 != 0;
-                multiplicador = 2;
-                break;
-            case "1 até 18":
-                ganhou = resultado >= 1 && resultado <= 18;
-                multiplicador = 2;
-                break;
-            case "19 até 36":
-                ganhou = resultado >= 19 && resultado <= 36;
-                multiplicador = 2;
-                break;
-            case "1 até 12":
-                ganhou = resultado >= 1 && resultado <= 12;
-                multiplicador = 3;
-                break;
-            case "13 até 24":
-                ganhou = resultado >= 13 && resultado <= 24;
-                multiplicador = 3;
-                break;
-            case "25 até 36":
-                ganhou = resultado >= 25 && resultado <= 36;
-                multiplicador = 3;
-                break;
-        }
-
-        if (ganhou)
-        {
-            int ganho = valorAposta * multiplicador;
-            GameManager.instancia.AdicionarDinheiro(ganho);
-            textoResultado.text =
-                $"Número: {resultado} ({cor})\n" +
-                $"Aposta: {aposta}: GANHASTE!\n" +
-                $"Recebeste +{ganho} moedas. (x{multiplicador})";
-        }
-        else
-        {
-            textoResultado.text =
-                $"Número: {resultado} ({cor})\n" +
-                $"Aposta: {aposta}: Perdeste.\n" +
-                $"- {valorAposta} moedas.";
-        }
+        case "Verde":
+            ganhou = resultado == 0;
+            multiplicador = 36;
+            break;
+        case "Preto":
+            ganhou = NumeroPreto(resultado);
+            multiplicador = 2;
+            break;
+        case "Vermelho":
+            ganhou = NumeroVermelho(resultado);
+            multiplicador = 2;
+            break;
+        case "Par":
+            ganhou = resultado != 0 && resultado % 2 == 0;
+            multiplicador = 2;
+            break;
+        case "Ímpar":
+            ganhou = resultado % 2 != 0;
+            multiplicador = 2;
+            break;
+        case "1 até 18":
+            ganhou = resultado >= 1 && resultado <= 18;
+            multiplicador = 2;
+            break;
+        case "19 até 36":
+            ganhou = resultado >= 19 && resultado <= 36;
+            multiplicador = 2;
+            break;
+        case "1 até 12":
+            ganhou = resultado >= 1 && resultado <= 12;
+            multiplicador = 3;
+            break;
+        case "13 até 24":
+            ganhou = resultado >= 13 && resultado <= 24;
+            multiplicador = 3;
+            break;
+        case "25 até 36":
+            ganhou = resultado >= 25 && resultado <= 36;
+            multiplicador = 3;
+            break;
     }
+
+    if (ganhou)
+    {
+        int ganho = valorAposta * multiplicador;
+        GameManager.instancia.AdicionarDinheiro(ganho);
+        textoResultado.text =
+            $"Número: {resultado} ({cor}, {paridade})\n" +
+            $"Aposta: {aposta}\n" +
+            $"Ganhaste {ganho} moedas. (x{multiplicador})";
+    }
+    else
+    {
+        textoResultado.text =
+            $"Número: {resultado} ({cor}, {paridade})\n" +
+            $"Aposta: {aposta}\n" +
+            $"Perdeste {valorAposta} moedas.";
+    }
+}
 
     void AtualizarTextoSaldo()
     {
         if (textoSaldo != null)
         {
-            textoSaldo.text = $"Saldo: {GameManager.instancia.ObterDinheiro()} moedas";
+            textoSaldo.text = $"Moedas: {GameManager.instancia.ObterDinheiro()}";
         }
     }
 

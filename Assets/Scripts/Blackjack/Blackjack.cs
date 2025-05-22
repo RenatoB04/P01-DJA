@@ -112,19 +112,37 @@ public class Blackjack : MonoBehaviour
         int totalJ = CalcularTotal(cartasJogador);
         int totalD = CalcularTotal(cartasDealer);
         string resultado;
+        int ganho = 0;
 
-        if (totalJ > 21) resultado = "Estouraste! Perdeste.";
+        bool blackjack = (cartasJogador.Count == 2 && totalJ == 21);
+
+        if (totalJ > 21)
+        {
+            resultado = $"Estouraste! Perdeste {apostaAtual} moedas.";
+        }
         else if (totalD > 21 || totalJ > totalD)
         {
-            resultado = "Ganhaste!";
-            GameManager.instancia.AdicionarDinheiro(apostaAtual * 2);
+            if (blackjack)
+            {
+                ganho = Mathf.RoundToInt(apostaAtual * 2.5f);
+                resultado = $"Blackjack! Ganhaste {ganho} moedas. (x2.5)";
+            }
+            else
+            {
+                ganho = apostaAtual * 2;
+                resultado = $"Ganhaste {ganho} moedas. (x2)";
+            }
+            GameManager.instancia.AdicionarDinheiro(ganho);
         }
         else if (totalJ == totalD)
         {
-            resultado = "Empate.";
             GameManager.instancia.AdicionarDinheiro(apostaAtual);
+            resultado = $"Empate.\nRecebeste de volta {apostaAtual} moedas.";
         }
-        else resultado = "Perdeste.";
+        else
+        {
+            resultado = $"Perdeste {apostaAtual} moedas.";
+        }
 
         jogoAtivo = false;
         dealerJogando = false;
@@ -166,7 +184,7 @@ public class Blackjack : MonoBehaviour
 
     void AtualizarUI()
     {
-        txtSaldo.text = "Saldo: " + GameManager.instancia.ObterDinheiro();
+        txtSaldo.text = "Moedas: " + GameManager.instancia.ObterDinheiro();
         txtTotalJogador.text = "Total Jogador: " + CalcularTotal(cartasJogador);
 
         if (jogoAtivo && !dealerJogando)

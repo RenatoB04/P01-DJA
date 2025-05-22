@@ -18,6 +18,7 @@ public class RouletteTrigger : MonoBehaviour
         if (collision.collider.CompareTag("Player"))
         {
             jogadorPerto = true;
+            MensagemInteracaoUI.instancia.Mostrar("Pressiona E para jogar na Roleta");
         }
     }
 
@@ -26,6 +27,7 @@ public class RouletteTrigger : MonoBehaviour
         if (collision.collider.CompareTag("Player"))
         {
             jogadorPerto = false;
+            MensagemInteracaoUI.instancia.Esconder();
         }
     }
 }

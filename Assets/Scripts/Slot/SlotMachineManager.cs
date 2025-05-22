@@ -94,12 +94,12 @@ public class SlotMachineManager : MonoBehaviour
         if (multiplicadorTotal > 0)
         {
             int ganho = valorAposta * multiplicadorTotal;
-            textoResultado.text = $"Ganhaste {ganho} moedas!\n(Pagamento: x{multiplicadorTotal})";
+            textoResultado.text = $"Ganhaste {ganho} moedas!\n(x{multiplicadorTotal})";
             GameManager.instancia.AdicionarDinheiro(ganho);
         }
         else
         {
-            textoResultado.text = $"Perdeste!\n- {valorAposta} moedas.";
+            textoResultado.text = $"Perdeste {valorAposta} moedas.";
         }
 
         textoResultado.gameObject.SetActive(true);

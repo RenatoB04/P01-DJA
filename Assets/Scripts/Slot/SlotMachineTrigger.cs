@@ -18,6 +18,7 @@ public class SlotMachineTrigger : MonoBehaviour
         if (collision.collider.CompareTag("Player"))
         {
             jogadorPerto = true;
+            MensagemInteracaoUI.instancia.Mostrar("Pressiona E para jogar nas Slots");
         }
     }
 
@@ -26,6 +27,7 @@ public class SlotMachineTrigger : MonoBehaviour
         if (collision.collider.CompareTag("Player"))
         {
             jogadorPerto = false;
+            MensagemInteracaoUI.instancia.Esconder();
         }
     }
 }

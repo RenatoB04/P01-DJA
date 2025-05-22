@@ -124,8 +124,8 @@ public class Blackjack : MonoBehaviour
         {
             if (blackjack)
             {
-                ganho = Mathf.RoundToInt(apostaAtual * 2.5f);
-                resultado = $"Blackjack! Ganhaste {ganho} moedas. (x2.5)";
+                ganho = apostaAtual * 3;
+                resultado = $"Blackjack! Ganhaste {ganho} moedas. (x3)";
             }
             else
             {

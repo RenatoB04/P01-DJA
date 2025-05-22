@@ -154,13 +154,13 @@ public class RoletaController : MonoBehaviour
             textoResultado.text =
                 $"Número: {resultado} ({cor})\n" +
                 $"Aposta: {aposta}: GANHASTE!\n" +
-                $"Recebeste +{ganho} moedas. (Pagamento: x{multiplicador})";
+                $"Recebeste +{ganho} moedas. (x{multiplicador})";
         }
         else
         {
             textoResultado.text =
                 $"Número: {resultado} ({cor})\n" +
-                $"Aposta: {aposta} → Perdeste.\n" +
+                $"Aposta: {aposta}: Perdeste.\n" +
                 $"- {valorAposta} moedas.";
         }
     }

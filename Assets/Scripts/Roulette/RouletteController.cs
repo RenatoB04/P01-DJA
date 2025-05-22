@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class RoletaController : MonoBehaviour
@@ -10,6 +11,7 @@ public class RoletaController : MonoBehaviour
     public TMP_InputField inputAposta;
     public TMP_Dropdown dropdownAposta;
     public Button botaoJogar;
+    public Button botaoVoltar;
     public TMP_Text textoResultado;
     public TMP_Text textoSaldo;
 
@@ -25,6 +27,7 @@ public class RoletaController : MonoBehaviour
     void Start()
     {
         botaoJogar.onClick.AddListener(GirarRoleta);
+        botaoVoltar.onClick.AddListener(VoltarParaJogo);
         AtualizarTextoSaldo();
     }
 
@@ -180,5 +183,10 @@ public class RoletaController : MonoBehaviour
     {
         int[] vermelhos = { 1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36 };
         return System.Array.Exists(vermelhos, x => x == num);
+    }
+    
+    public void VoltarParaJogo()
+    {
+        SceneManager.LoadScene("Jogo");
     }
 }

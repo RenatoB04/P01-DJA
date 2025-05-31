@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class AbrirRodaDiaria : MonoBehaviour
+public class DailyWheelTrigger : MonoBehaviour
 {
     private bool jogadorPerto = false;
 
@@ -9,7 +9,7 @@ public class AbrirRodaDiaria : MonoBehaviour
     {
         if (jogadorPerto && Input.GetKeyDown(KeyCode.E))
         {
-            SceneManager.LoadScene("RodaScene");
+            SceneManager.LoadScene("DailyWheel");
         }
     }
 
@@ -18,6 +18,7 @@ public class AbrirRodaDiaria : MonoBehaviour
         if (collision.collider.CompareTag("Player"))
         {
             jogadorPerto = true;
+            MensagemInteracaoUI.instancia.Mostrar("Pressiona E para jogar na Roda Diária!");
         }
     }
 
@@ -26,6 +27,7 @@ public class AbrirRodaDiaria : MonoBehaviour
         if (collision.collider.CompareTag("Player"))
         {
             jogadorPerto = false;
+            MensagemInteracaoUI.instancia.Esconder();
         }
     }
 }

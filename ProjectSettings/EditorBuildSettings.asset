@@ -35,6 +35,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/RouletteScene.unity
     guid: c4cf391d5d9dca24581bec8c2f723241
+  - enabled: 1
+    path: Assets/Scenes/PowerUp.unity
+    guid: 22ea97a164542c34ca6038744efb61fe
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: d4c87ff888b2ad2428fbd5321ac74eec
+guid: 3ed97b152afa2b44c9929e074dee9142
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6053515615522347403
-    second: wheel3_0
+      213: 931618238679285206
+    second: roda_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: wheel3_0
+      name: roda_0
       rect:
         serializedVersion: 2
-        x: 3
-        y: 8
-        width: 1019
-        height: 1011
+        x: 0
+        y: 0
+        width: 1788
+        height: 1788
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b895d712168620450800000000000000
-      internalID: 6053515615522347403
+      spriteID: 6ddf0c62ad5cdec00800000000000000
+      internalID: 931618238679285206
       vertices: []
       indices: 
       edges: []
@@ -134,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      wheel3_0: 6053515615522347403
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -90,7 +90,7 @@ public class RodaDiaria : MonoBehaviour
         int premio = premios[indicePremio];
         if (premio == 5000)
         {
-            textoResultado.text = "JACKPOT! Ganhaste 5000 moedas!";
+            textoResultado.text = "JACKPOT! Ganhaste 5000!";
         }
         else
         {

@@ -24,6 +24,11 @@ public class Blackjack : MonoBehaviour
     public TMP_Text txtTotalDealer;
     public Button botaoVoltar;
 
+    [Header("Áudio")]
+    public AudioClip somCarta;
+    public AudioClip somVitoria;
+    private AudioSource audioSource;
+
     private int apostaAtual = 0;
 
     private List<Carta> cartasJogador = new List<Carta>();
@@ -34,6 +39,8 @@ public class Blackjack : MonoBehaviour
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+
         baralho.Inicializar();
         AtualizarUI();
         txtMensagem.text = "Insere uma aposta e clica em Jogar.";
@@ -132,7 +139,13 @@ public class Blackjack : MonoBehaviour
                 ganho = apostaAtual * 2;
                 resultado = $"Ganhaste {ganho} moedas. (x2)";
             }
+
             GameManager.instancia.AdicionarDinheiro(ganho);
+            
+            if (somVitoria != null && audioSource != null)
+            {
+                audioSource.PlayOneShot(somVitoria);
+            }
         }
         else if (totalJ == totalD)
         {
@@ -158,6 +171,11 @@ public class Blackjack : MonoBehaviour
         GameObject cartaGO = Instantiate(cartaPrefab, destino);
         var img = cartaGO.GetComponent<Image>();
         img.sprite = visivel ? nova.imagem : versoCarta;
+
+        if (somCarta != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(somCarta);
+        }
     }
 
     int CalcularTotal(List<Carta> cartas)

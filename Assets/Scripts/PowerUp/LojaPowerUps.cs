@@ -62,10 +62,10 @@ public class LojaPowerUps : MonoBehaviour
     void AtualizarTextoBotao()
     {
         int precoGanho = CalcularPreco(dropdownPercentagemGanho.value, dropdownDuracaoGanho.value);
-        botaoGanhoExtra.GetComponentInChildren<TMP_Text>().text = $"Comprar ({precoGanho} moedas)";
+        botaoGanhoExtra.GetComponentInChildren<TMP_Text>().text = $"{precoGanho} moedas)";
 
         int precoProtecao = CalcularPreco(dropdownPercentagemProtecao.value, dropdownDuracaoProtecao.value);
-        botaoProtecaoPerda.GetComponentInChildren<TMP_Text>().text = $"Comprar ({precoProtecao} moedas)";
+        botaoProtecaoPerda.GetComponentInChildren<TMP_Text>().text = $"{precoProtecao} moedas)";
     }
 
     int CalcularPreco(int percentIndex, int duracaoIndex)

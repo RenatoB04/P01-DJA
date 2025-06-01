@@ -33,12 +33,28 @@ public class SaveTrigger : MonoBehaviour
     void RecomecarJogo()
     {
         int dinheiroInicial = 1000;
-
+        
         GameManager.instancia.DefinirDinheiro(dinheiroInicial);
-        PowerUpManager.instancia.ganhoExtraAtivo = false;
-        PowerUpManager.instancia.protecaoPerdaAtiva = false;
 
-        SaveManager.GuardarJogo(dinheiroInicial, false, false);
+        if (PowerUpManager.instancia != null)
+        {
+            PowerUpManager.instancia.ganhoExtraAtivo = false;
+            PowerUpManager.instancia.ganhoExtraPercentagem = 0;
+            PowerUpManager.instancia.ganhoExtraDuracao = "";
+            PowerUpManager.instancia.ganhoExtraDataCompra = "";
+
+            PowerUpManager.instancia.protecaoPerdaAtiva = false;
+            PowerUpManager.instancia.protecaoPerdaPercentagem = 0;
+            PowerUpManager.instancia.protecaoPerdaDuracao = "";
+            PowerUpManager.instancia.protecaoPerdaDataCompra = "";
+        }
+
+        SaveManager.GuardarJogo(
+            dinheiroInicial,
+            false, 0, "", "",
+            false, 0, "", ""
+        );
+
         Debug.Log("Jogo reiniciado.");
         MensagemInteracaoUI.instancia.MostrarTemporario("Jogo reiniciado com sucesso!", 2f);
     }

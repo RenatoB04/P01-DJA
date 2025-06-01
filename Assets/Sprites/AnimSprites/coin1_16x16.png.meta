@@ -167,9 +167,9 @@ TextureImporter:
       name: coin1_16x16_1
       rect:
         serializedVersion: 2
-        x: 17
+        x: 16
         y: 0
-        width: 15
+        width: 16
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -189,9 +189,9 @@ TextureImporter:
       name: coin1_16x16_2
       rect:
         serializedVersion: 2
-        x: 33
+        x: 32
         y: 0
-        width: 14
+        width: 16
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -211,9 +211,9 @@ TextureImporter:
       name: coin1_16x16_3
       rect:
         serializedVersion: 2
-        x: 50
+        x: 48
         y: 0
-        width: 13
+        width: 16
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -233,9 +233,9 @@ TextureImporter:
       name: coin1_16x16_4
       rect:
         serializedVersion: 2
-        x: 66
+        x: 64
         y: 0
-        width: 12
+        width: 16
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -255,9 +255,9 @@ TextureImporter:
       name: coin1_16x16_5
       rect:
         serializedVersion: 2
-        x: 82
+        x: 80
         y: 0
-        width: 11
+        width: 16
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -277,9 +277,9 @@ TextureImporter:
       name: coin1_16x16_6
       rect:
         serializedVersion: 2
-        x: 99
+        x: 96
         y: 0
-        width: 9
+        width: 16
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -299,9 +299,9 @@ TextureImporter:
       name: coin1_16x16_7
       rect:
         serializedVersion: 2
-        x: 116
+        x: 112
         y: 0
-        width: 7
+        width: 16
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -321,9 +321,9 @@ TextureImporter:
       name: coin1_16x16_8
       rect:
         serializedVersion: 2
-        x: 131
+        x: 128
         y: 0
-        width: 9
+        width: 16
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -343,9 +343,9 @@ TextureImporter:
       name: coin1_16x16_9
       rect:
         serializedVersion: 2
-        x: 146
+        x: 144
         y: 0
-        width: 11
+        width: 16
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -365,9 +365,9 @@ TextureImporter:
       name: coin1_16x16_10
       rect:
         serializedVersion: 2
-        x: 162
+        x: 160
         y: 0
-        width: 12
+        width: 16
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -387,9 +387,9 @@ TextureImporter:
       name: coin1_16x16_11
       rect:
         serializedVersion: 2
-        x: 178
+        x: 176
         y: 0
-        width: 13
+        width: 16
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -409,9 +409,9 @@ TextureImporter:
       name: coin1_16x16_12
       rect:
         serializedVersion: 2
-        x: 193
+        x: 192
         y: 0
-        width: 14
+        width: 16
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -431,9 +431,9 @@ TextureImporter:
       name: coin1_16x16_13
       rect:
         serializedVersion: 2
-        x: 209
+        x: 208
         y: 0
-        width: 15
+        width: 16
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -453,9 +453,9 @@ TextureImporter:
       name: coin1_16x16_14
       rect:
         serializedVersion: 2
-        x: 225
+        x: 224
         y: 0
-        width: 15
+        width: 16
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -475,7 +475,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 3190c423bc2e94e4dab5ed1aa77e15ae
     internalID: 0
     vertices: []
     indices: 

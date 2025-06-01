@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.IO;
+using System.Collections.Generic;
 
 [System.Serializable]
 public class SaveData
@@ -15,11 +16,14 @@ public class SaveData
     public int protecaoPerdaPercentagem;
     public string protecaoPerdaDuracao;
     public string protecaoPerdaDataCompra;
+
+    public List<string> moedasApanhadas = new List<string>();
 }
 
 public static class SaveManager
 {
     private static string caminho => Application.persistentDataPath + "/save.json";
+    private static SaveData dados;
 
     public static void GuardarJogo(
         int dinheiro,
@@ -32,7 +36,7 @@ public static class SaveManager
         string protecaoPerdaDuracao,
         string protecaoPerdaDataCompra)
     {
-        SaveData dados = new SaveData
+        dados = new SaveData
         {
             dinheiro = dinheiro,
 
@@ -44,12 +48,12 @@ public static class SaveManager
             protecaoPerdaAtiva = protecaoPerdaAtiva,
             protecaoPerdaPercentagem = protecaoPerdaPercentagem,
             protecaoPerdaDuracao = protecaoPerdaDuracao,
-            protecaoPerdaDataCompra = protecaoPerdaDataCompra
+            protecaoPerdaDataCompra = protecaoPerdaDataCompra,
+
+            moedasApanhadas = dados?.moedasApanhadas ?? new List<string>()
         };
 
-        string json = JsonUtility.ToJson(dados, true);
-        File.WriteAllText(caminho, json);
-        Debug.Log("Jogo guardado.");
+        GuardarDados();
     }
 
     public static SaveData CarregarJogo()
@@ -57,10 +61,39 @@ public static class SaveManager
         if (File.Exists(caminho))
         {
             string json = File.ReadAllText(caminho);
-            return JsonUtility.FromJson<SaveData>(json);
+            dados = JsonUtility.FromJson<SaveData>(json);
+            return dados;
         }
 
-        return null;
+        dados = new SaveData();
+        return dados;
+    }
+
+    public static void MarcarMoedaComoApanhada(string id)
+    {
+        if (dados == null)
+            dados = CarregarJogo();
+
+        if (!dados.moedasApanhadas.Contains(id))
+        {
+            dados.moedasApanhadas.Add(id);
+            GuardarDados();
+        }
+    }
+
+    public static bool MoedaFoiApanhada(string id)
+    {
+        if (dados == null)
+            dados = CarregarJogo();
+
+        return dados.moedasApanhadas.Contains(id);
+    }
+
+    private static void GuardarDados()
+    {
+        string json = JsonUtility.ToJson(dados, true);
+        File.WriteAllText(caminho, json);
+        Debug.Log("Jogo guardado.");
     }
 
     [ContextMenu("Apagar Jogo (Save)")]

@@ -13,7 +13,7 @@ public class PowerUpsUI : MonoBehaviour
 
         if (PowerUpManager.instancia.ganhoExtraAtivo)
         {
-            texto += $"- Ganho Extra: +{PowerUpManager.instancia.ganhoExtraPercentagem}%";
+            texto += $"Ganho Extra: +{PowerUpManager.instancia.ganhoExtraPercentagem}%";
 
             if (PowerUpManager.instancia.ganhoExtraDuracao.ToLower() != "permanente" &&
                 DateTime.TryParse(PowerUpManager.instancia.ganhoExtraDataCompra, null, DateTimeStyles.AdjustToUniversal | DateTimeStyles.AssumeUniversal, out DateTime dataCompra))
@@ -27,7 +27,7 @@ public class PowerUpsUI : MonoBehaviour
 
         if (PowerUpManager.instancia.protecaoPerdaAtiva)
         {
-            texto += $"- Proteção de Perda: {PowerUpManager.instancia.protecaoPerdaPercentagem}%";
+            texto += $"Proteção de Perda: {PowerUpManager.instancia.protecaoPerdaPercentagem}%";
 
             if (PowerUpManager.instancia.protecaoPerdaDuracao.ToLower() != "permanente" &&
                 DateTime.TryParse(PowerUpManager.instancia.protecaoPerdaDataCompra, null, DateTimeStyles.AdjustToUniversal | DateTimeStyles.AssumeUniversal, out DateTime dataCompra))

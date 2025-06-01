@@ -33,7 +33,7 @@ public class SaveTrigger : MonoBehaviour
     void RecomecarJogo()
     {
         int dinheiroInicial = 1000;
-        
+
         GameManager.instancia.DefinirDinheiro(dinheiroInicial);
 
         if (PowerUpManager.instancia != null)
@@ -48,6 +48,14 @@ public class SaveTrigger : MonoBehaviour
             PowerUpManager.instancia.protecaoPerdaDuracao = "";
             PowerUpManager.instancia.protecaoPerdaDataCompra = "";
         }
+        
+        SaveManager.GuardarJogo(
+            dinheiroInicial,
+            false, 0, "", "",
+            false, 0, "", ""
+        );
+
+        SaveManager.CarregarJogo().moedasApanhadas.Clear();
 
         SaveManager.GuardarJogo(
             dinheiroInicial,

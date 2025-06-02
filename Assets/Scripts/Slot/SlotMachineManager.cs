@@ -14,6 +14,11 @@ public class SlotMachineManager : MonoBehaviour
     public TextMeshProUGUI textoDinheiro;
     public TMP_InputField inputAposta;
 
+    [Header("Áudio")]
+    public AudioClip somPull;
+    public AudioClip somWin;
+    private AudioSource audioSource;
+
     private int valorAposta = 0;
 
     void Start()
@@ -24,6 +29,8 @@ public class SlotMachineManager : MonoBehaviour
         botaoJogar.onClick.AddListener(TentarJogar);
         botaoVoltar.onClick.AddListener(() => SceneManager.LoadScene("Jogo"));
         AtualizarTextoDinheiro();
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     void TentarJogar()
@@ -39,6 +46,12 @@ public class SlotMachineManager : MonoBehaviour
 
         if (saldoAtual >= valorAposta)
         {
+            // Tocar som da alavanca
+            if (somPull != null && audioSource != null)
+            {
+                audioSource.PlayOneShot(somPull);
+            }
+
             GameManager.instancia.RemoverDinheiro(valorAposta);
             AtualizarTextoDinheiro();
             StartCoroutine(RodarSlots());
@@ -68,7 +81,7 @@ public class SlotMachineManager : MonoBehaviour
         }
 
         int multiplicadorTotal = 0;
-        
+
         for (int linha = 0; linha < 3; linha++)
         {
             Sprite s1 = grelha[0][linha];
@@ -80,7 +93,7 @@ public class SlotMachineManager : MonoBehaviour
                 multiplicadorTotal += 3;
             }
         }
-        
+
         if (grelha[0][0] == grelha[1][1] && grelha[1][1] == grelha[2][2])
         {
             multiplicadorTotal += 5;
@@ -94,6 +107,13 @@ public class SlotMachineManager : MonoBehaviour
         if (multiplicadorTotal > 0)
         {
             int ganho = valorAposta * multiplicadorTotal;
+
+            // Tocar som de vitória
+            if (somWin != null && audioSource != null)
+            {
+                audioSource.PlayOneShot(somWin);
+            }
+
             textoResultado.text = $"Ganhaste {ganho} moedas!\n(x{multiplicadorTotal})";
             GameManager.instancia.AdicionarDinheiro(ganho);
         }

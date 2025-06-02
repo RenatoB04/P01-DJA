@@ -18,6 +18,11 @@ public class RodaDiaria : MonoBehaviour
     [Header("Configuração da Roda")]
     private int[] premios = { 5000, 50, 250, 1000, 50, 500, 250, 50 };
 
+    [Header("Áudio")]
+    public AudioClip somWin;
+    public AudioClip somRodar;
+    private AudioSource audioSource;
+
     private bool modoDebug = false;
 
     private DateTime proximaRotacao;
@@ -28,23 +33,26 @@ public class RodaDiaria : MonoBehaviour
         botaoRodar.onClick.AddListener(Rodar);
         botaoVoltar.onClick.AddListener(VoltarParaCenaJogo);
 
+        audioSource = GetComponent<AudioSource>();
+
         if (!modoDebug)
         {
-            string dataGuardada = PlayerPrefs.GetString("DataUltimaRoda", "");
-            if (!string.IsNullOrEmpty(dataGuardada))
-            {
-                proximaRotacao = DateTime.Parse(dataGuardada).AddHours(24);
-            }
-            else
-            {
-                proximaRotacao = DateTime.MinValue;
-            }
-        }
+          string dataGuardada = PlayerPrefs.GetString("DataUltimaRoda", "");
+         if (!string.IsNullOrEmpty(dataGuardada))
+          {
+           proximaRotacao = DateTime.Parse(dataGuardada).AddHours(24);
+         }
         else
-        {
+         {
+             proximaRotacao = DateTime.MinValue;
+         }
+         }
+         else
+         {
             proximaRotacao = DateTime.Now;
-        }
-
+         }
+       
+    
         AtualizarSaldoUI();
         StartCoroutine(VerificarTempoRestante());
     }
@@ -52,6 +60,10 @@ public class RodaDiaria : MonoBehaviour
     void Rodar()
     {
         if (!podeRodar) return;
+
+        if (somRodar != null && audioSource != null)
+            audioSource.PlayOneShot(somRodar);
+
         StartCoroutine(RodarAnimacao());
     }
 
@@ -100,6 +112,9 @@ public class RodaDiaria : MonoBehaviour
         if (premio > 0)
         {
             GameManager.instancia.AdicionarDinheiro(premio);
+
+            if (somWin != null && audioSource != null)
+                audioSource.PlayOneShot(somWin);
         }
 
         AtualizarSaldoUI();
@@ -147,7 +162,7 @@ public class RodaDiaria : MonoBehaviour
         PlayerPrefs.Save();
         Debug.Log("Memória da roda limpa!");
     }
-    
+
     void AtualizarSaldoUI()
     {
         if (textoSaldo != null && GameManager.instancia != null)

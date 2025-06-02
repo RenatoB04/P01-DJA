@@ -15,6 +15,11 @@ public class RoletaController : MonoBehaviour
     public TMP_Text textoResultado;
     public TMP_Text textoSaldo;
 
+    [Header("Áudio")]
+    public AudioClip somRoleta;
+    public AudioClip somWin;
+    private AudioSource audioSource;
+
     private bool aRodar = false;
 
     private readonly int[] ordemRoleta = {
@@ -29,6 +34,8 @@ public class RoletaController : MonoBehaviour
         botaoJogar.onClick.AddListener(GirarRoleta);
         botaoVoltar.onClick.AddListener(VoltarParaJogo);
         AtualizarTextoSaldo();
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     void GirarRoleta()
@@ -59,6 +66,11 @@ public class RoletaController : MonoBehaviour
     {
         aRodar = true;
         textoResultado.text = "A girar...";
+
+        if (somRoleta != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(somRoleta);
+        }
 
         float anguloInicial = roletaNumeros.rectTransform.eulerAngles.z;
         float voltas = Random.Range(4f, 5f);
@@ -95,79 +107,84 @@ public class RoletaController : MonoBehaviour
         return 1 - Mathf.Pow(1 - t, 3);
     }
 
-void VerificarAposta(int resultado, int valorAposta)
-{
-    string aposta = dropdownAposta.options[dropdownAposta.value].text;
-    bool ganhou = false;
-    int multiplicador = 0;
+    void VerificarAposta(int resultado, int valorAposta)
+    {
+        string aposta = dropdownAposta.options[dropdownAposta.value].text;
+        bool ganhou = false;
+        int multiplicador = 0;
 
-    string cor = resultado == 0 ? "Verde" : NumeroPreto(resultado) ? "Preto" : "Vermelho";
-    
-    string paridade = "-";
-    if (resultado != 0)
-        paridade = resultado % 2 == 0 ? "Par" : "Ímpar";
-    
-    switch (aposta)
-    {
-        case "Verde":
-            ganhou = resultado == 0;
-            multiplicador = 36;
-            break;
-        case "Preto":
-            ganhou = NumeroPreto(resultado);
-            multiplicador = 2;
-            break;
-        case "Vermelho":
-            ganhou = NumeroVermelho(resultado);
-            multiplicador = 2;
-            break;
-        case "Par":
-            ganhou = resultado != 0 && resultado % 2 == 0;
-            multiplicador = 2;
-            break;
-        case "Ímpar":
-            ganhou = resultado % 2 != 0;
-            multiplicador = 2;
-            break;
-        case "1 até 18":
-            ganhou = resultado >= 1 && resultado <= 18;
-            multiplicador = 2;
-            break;
-        case "19 até 36":
-            ganhou = resultado >= 19 && resultado <= 36;
-            multiplicador = 2;
-            break;
-        case "1 até 12":
-            ganhou = resultado >= 1 && resultado <= 12;
-            multiplicador = 3;
-            break;
-        case "13 até 24":
-            ganhou = resultado >= 13 && resultado <= 24;
-            multiplicador = 3;
-            break;
-        case "25 até 36":
-            ganhou = resultado >= 25 && resultado <= 36;
-            multiplicador = 3;
-            break;
-    }
+        string cor = resultado == 0 ? "Verde" : NumeroPreto(resultado) ? "Preto" : "Vermelho";
 
-    if (ganhou)
-    {
-        int ganho = valorAposta * multiplicador;
-        GameManager.instancia.AdicionarDinheiro(ganho);
-        textoResultado.text =
-            $"Número: {resultado} ({cor}, {paridade})\n" +
-            $"Aposta: {aposta}\n" +
-            $"Ganhaste {ganho} moedas. (x{multiplicador})";
+        string paridade = "-";
+        if (resultado != 0)
+            paridade = resultado % 2 == 0 ? "Par" : "Ímpar";
+
+        switch (aposta)
+        {
+            case "Verde":
+                ganhou = resultado == 0;
+                multiplicador = 36;
+                break;
+            case "Preto":
+                ganhou = NumeroPreto(resultado);
+                multiplicador = 2;
+                break;
+            case "Vermelho":
+                ganhou = NumeroVermelho(resultado);
+                multiplicador = 2;
+                break;
+            case "Par":
+                ganhou = resultado != 0 && resultado % 2 == 0;
+                multiplicador = 2;
+                break;
+            case "Ímpar":
+                ganhou = resultado % 2 != 0;
+                multiplicador = 2;
+                break;
+            case "1 até 18":
+                ganhou = resultado >= 1 && resultado <= 18;
+                multiplicador = 2;
+                break;
+            case "19 até 36":
+                ganhou = resultado >= 19 && resultado <= 36;
+                multiplicador = 2;
+                break;
+            case "1 até 12":
+                ganhou = resultado >= 1 && resultado <= 12;
+                multiplicador = 3;
+                break;
+            case "13 até 24":
+                ganhou = resultado >= 13 && resultado <= 24;
+                multiplicador = 3;
+                break;
+            case "25 até 36":
+                ganhou = resultado >= 25 && resultado <= 36;
+                multiplicador = 3;
+                break;
+        }
+
+        if (ganhou)
+        {
+            if (somWin != null && audioSource != null)
+            {
+                audioSource.PlayOneShot(somWin);
+            }
+
+            int ganho = valorAposta * multiplicador;
+            GameManager.instancia.AdicionarDinheiro(ganho);
+            textoResultado.text =
+                $"Número: {resultado} ({cor}, {paridade})\n" +
+                $"Aposta: {aposta}\n" +
+                $"Ganhaste {ganho} moedas. (x{multiplicador})";
+        }
+        else
+        {
+            textoResultado.text =
+                $"Número: {resultado} ({cor}, {paridade})\n" +
+                $"Aposta: {aposta}\n" +
+                $"Perdeste {valorAposta} moedas.";
+        }
     }
-    else
-    {
-        textoResultado.text =
-            $"Número: {resultado} ({cor}, {paridade})\n" +
-            $"Aposta: {aposta}\n" +
-            $"Perdeste {valorAposta} moedas.";
-    }
-}
 
     void AtualizarTextoSaldo()
     {
@@ -188,7 +205,7 @@ void VerificarAposta(int resultado, int valorAposta)
         int[] vermelhos = { 1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36 };
         return System.Array.Exists(vermelhos, x => x == num);
     }
-    
+
     public void VoltarParaJogo()
     {
         SceneManager.LoadScene("Jogo");

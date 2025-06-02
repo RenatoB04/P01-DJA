@@ -16,15 +16,14 @@ public class RodaDiaria : MonoBehaviour
     public Transform imagemRoda;
 
     [Header("Configuração da Roda")]
-    private int[] premios = { 5000, 50, 250, 1000, 50, 500, 250, 50 };
+    private int[] premios = { 5000, 50, 250, 1000, 50, 500, 250, 50 }; // Valores possíveis atribuídos pelas fatias da roda
 
     [Header("Áudio")]
     public AudioClip somWin;
     public AudioClip somRodar;
     private AudioSource audioSource;
 
-    private bool modoDebug = false;
-
+    private bool modoDebug = false; // Se estiver ativo, ignora o tempo de espera
     private DateTime proximaRotacao;
     private bool podeRodar = false;
 
@@ -35,26 +34,22 @@ public class RodaDiaria : MonoBehaviour
 
         audioSource = GetComponent<AudioSource>();
 
+        // Verifica se já existe uma data guardada para limitar o uso da roda a cada 24h
         if (!modoDebug)
         {
-          string dataGuardada = PlayerPrefs.GetString("DataUltimaRoda", "");
-         if (!string.IsNullOrEmpty(dataGuardada))
-          {
-           proximaRotacao = DateTime.Parse(dataGuardada).AddHours(24);
-         }
+            string dataGuardada = PlayerPrefs.GetString("DataUltimaRoda", "");
+            if (!string.IsNullOrEmpty(dataGuardada))
+                proximaRotacao = DateTime.Parse(dataGuardada).AddHours(24);
+            else
+                proximaRotacao = DateTime.MinValue;
+        }
         else
-         {
-             proximaRotacao = DateTime.MinValue;
-         }
-         }
-         else
-         {
+        {
             proximaRotacao = DateTime.Now;
-         }
-       
-    
+        }
+
         AtualizarSaldoUI();
-        StartCoroutine(VerificarTempoRestante());
+        StartCoroutine(VerificarTempoRestante()); // Inicia a contagem para mostrar quanto falta
     }
 
     void Rodar()
@@ -64,7 +59,7 @@ public class RodaDiaria : MonoBehaviour
         if (somRodar != null && audioSource != null)
             audioSource.PlayOneShot(somRodar);
 
-        StartCoroutine(RodarAnimacao());
+        StartCoroutine(RodarAnimacao()); // Começa a rotação da roda com animação
     }
 
     IEnumerator RodarAnimacao()
@@ -76,6 +71,7 @@ public class RodaDiaria : MonoBehaviour
         int totalFatias = premios.Length;
         float anguloPorFatia = 360f / totalFatias;
 
+        // Define um ângulo aleatório final e simula várias voltas
         float anguloFinal = UnityEngine.Random.Range(0f, 360f);
         float voltas = 5f;
         float anguloInicial = imagemRoda.eulerAngles.z;
@@ -84,6 +80,7 @@ public class RodaDiaria : MonoBehaviour
         float tempoTotal = 3.5f;
         float tempo = 0f;
 
+        // Animação suave da rotação com easing
         while (tempo < tempoTotal)
         {
             tempo += Time.deltaTime;
@@ -96,18 +93,17 @@ public class RodaDiaria : MonoBehaviour
 
         imagemRoda.eulerAngles = new Vector3(0, 0, anguloDestino % 360f);
 
+        // Determina o prémio com base na posição final da roda
         float anguloPositivo = Mathf.Abs(anguloDestino % 360f);
         int indicePremio = Mathf.FloorToInt(anguloPositivo / anguloPorFatia) % totalFatias;
 
         int premio = premios[indicePremio];
+
+        // Mostra mensagem de prémio e atribui recompensa
         if (premio == 5000)
-        {
             textoResultado.text = "JACKPOT! Ganhaste 5000!";
-        }
         else
-        {
             textoResultado.text = $"Ganhaste {premio} moedas!";
-        }
 
         if (premio > 0)
         {
@@ -119,6 +115,7 @@ public class RodaDiaria : MonoBehaviour
 
         AtualizarSaldoUI();
 
+        // Atualiza a data da próxima rotação (24h depois)
         if (!modoDebug)
         {
             proximaRotacao = DateTime.Now.AddHours(24);
@@ -131,6 +128,7 @@ public class RodaDiaria : MonoBehaviour
 
     IEnumerator VerificarTempoRestante()
     {
+        // Verifica continuamente se o jogador já pode rodar novamente
         while (true)
         {
             TimeSpan diferenca = proximaRotacao - DateTime.Now;
@@ -140,7 +138,7 @@ public class RodaDiaria : MonoBehaviour
                 podeRodar = true;
                 botaoRodar.interactable = true;
                 textoTempoRestante.text = "Podes rodar!";
-                yield break;
+                yield break; // Termina a rotina quando a roda estiver disponível
             }
             else
             {
@@ -153,12 +151,13 @@ public class RodaDiaria : MonoBehaviour
         }
     }
 
+    // Função de easing para suavizar a animação de rotação
     float EaseOutQuint(float t) => 1 - Mathf.Pow(1 - t, 5);
 
     [ContextMenu("Limpar memória da roda")]
     void LimparMemoriaDaRoda()
     {
-        PlayerPrefs.DeleteKey("DataUltimaRoda");
+        PlayerPrefs.DeleteKey("DataUltimaRoda"); // Útil para testes ou debugging
         PlayerPrefs.Save();
         Debug.Log("Memória da roda limpa!");
     }
@@ -174,6 +173,6 @@ public class RodaDiaria : MonoBehaviour
 
     void VoltarParaCenaJogo()
     {
-        SceneManager.LoadScene("Jogo");
+        SceneManager.LoadScene("Jogo"); // Volta à cena principal do jogo
     }
 }

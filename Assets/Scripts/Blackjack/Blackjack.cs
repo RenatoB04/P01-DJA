@@ -41,10 +41,11 @@ public class Blackjack : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
 
-        baralho.Inicializar();
+        baralho.Inicializar(); // Garante que o baralho está pronto para ser usado
         AtualizarUI();
         txtMensagem.text = "Insere uma aposta e clica em Jogar.";
 
+        // Associa o botão de voltar ao método correspondente, se o botão estiver presente na cena
         if (botaoVoltar != null)
         {
             botaoVoltar.onClick.AddListener(VoltarAoJogo);
@@ -55,21 +56,25 @@ public class Blackjack : MonoBehaviour
     {
         int saldoAtual = GameManager.instancia.ObterDinheiro();
 
+        // Verifica se a aposta é válida (número positivo e dentro do saldo disponível)
         if (!int.TryParse(inputAposta.text, out apostaAtual) || apostaAtual <= 0 || apostaAtual > saldoAtual)
         {
             txtMensagem.text = "Aposta inválida.";
             return;
         }
 
+        // Deduz a aposta do saldo do jogador
         GameManager.instancia.RemoverDinheiro(apostaAtual);
         jogoAtivo = true;
         dealerJogando = false;
 
+        // Reinicia as mãos (jogador e dealer) e limpa o ecrã
         LimparMao(handJogador);
         LimparMao(handDealer);
         cartasJogador.Clear();
         cartasDealer.Clear();
 
+        // Dá duas cartas ao jogador e ao dealer (sendo que a 2ª carta do dealer fica virada para baixo)
         DarCarta(cartasJogador, handJogador, true);
         DarCarta(cartasDealer, handDealer, true);
         DarCarta(cartasJogador, handJogador, true);
@@ -81,11 +86,13 @@ public class Blackjack : MonoBehaviour
 
     public void Pedir()
     {
+        // Verifica se o jogo está em andamento e se ainda é a vez do jogador
         if (!jogoAtivo || dealerJogando) return;
 
         DarCarta(cartasJogador, handJogador, true);
         AtualizarUI();
 
+        // Verifica se o jogador ultrapassou 21 pontos
         if (CalcularTotal(cartasJogador) > 21)
         {
             txtMensagem.text = "Estouraste! Perdeste.";
@@ -96,6 +103,7 @@ public class Blackjack : MonoBehaviour
 
     public void Ficar()
     {
+        // Passa a vez para o dealer
         if (!jogoAtivo || dealerJogando) return;
 
         dealerJogando = true;
@@ -105,10 +113,13 @@ public class Blackjack : MonoBehaviour
     private IEnumerator DealerJoga()
     {
         yield return new WaitForSeconds(1f);
+
+        // Revela a carta virada do dealer
         var imgVirada = handDealer.GetChild(1).GetComponent<Image>();
         imgVirada.sprite = cartasDealer[1].imagem;
         AtualizarUI();
 
+        // O dealer continua a tirar cartas até ter pelo menos 17 pontos
         while (CalcularTotal(cartasDealer) < 17)
         {
             yield return new WaitForSeconds(1f);
@@ -123,6 +134,7 @@ public class Blackjack : MonoBehaviour
 
         bool blackjack = (cartasJogador.Count == 2 && totalJ == 21);
 
+        // Determina o resultado do jogo com base nos totais
         if (totalJ > 21)
         {
             resultado = $"Estouraste! Perdeste {apostaAtual} moedas.";
@@ -141,7 +153,7 @@ public class Blackjack : MonoBehaviour
             }
 
             GameManager.instancia.AdicionarDinheiro(ganho);
-            
+
             if (somVitoria != null && audioSource != null)
             {
                 audioSource.PlayOneShot(somVitoria);
@@ -165,9 +177,11 @@ public class Blackjack : MonoBehaviour
 
     void DarCarta(List<Carta> lista, Transform destino, bool visivel)
     {
+        // Retira uma carta do baralho e adiciona à lista de cartas da mão (jogador ou dealer)
         Carta nova = baralho.TirarCarta();
         lista.Add(nova);
 
+        // Cria visualmente a carta na interface
         GameObject cartaGO = Instantiate(cartaPrefab, destino);
         var img = cartaGO.GetComponent<Image>();
         img.sprite = visivel ? nova.imagem : versoCarta;
@@ -181,21 +195,27 @@ public class Blackjack : MonoBehaviour
     int CalcularTotal(List<Carta> cartas)
     {
         int total = 0, ases = 0;
+
+        // Soma os valores das cartas, tratando os ases como 11 inicialmente
         foreach (var c in cartas)
         {
             total += c.valor;
             if (c.valor == 11) ases++;
         }
+
+        // Se o total ultrapassar 21, converte ases de 11 para 1 até o total ser aceitável
         while (total > 21 && ases > 0)
         {
             total -= 10;
             ases--;
         }
+
         return total;
     }
 
     void LimparMao(Transform hand)
     {
+        // Remove todas as cartas visuais da mão (útil para reiniciar jogadas)
         foreach (Transform filho in hand)
             Destroy(filho.gameObject);
     }
@@ -205,6 +225,7 @@ public class Blackjack : MonoBehaviour
         txtSaldo.text = "Moedas: " + GameManager.instancia.ObterDinheiro();
         txtTotalJogador.text = "Total Jogador: " + CalcularTotal(cartasJogador);
 
+        // Durante o jogo, mostra apenas o valor da carta visível do dealer
         if (jogoAtivo && !dealerJogando)
         {
             int vis = cartasDealer.Count > 0 ? cartasDealer[0].valor : 0;
@@ -218,6 +239,6 @@ public class Blackjack : MonoBehaviour
 
     public void VoltarAoJogo()
     {
-        SceneManager.LoadScene("Jogo");
+        SceneManager.LoadScene("Jogo"); // Volta para a cena principal do jogo
     }
 }

@@ -6,6 +6,7 @@ using System.Collections;
 
 public class RoletaController : MonoBehaviour
 {
+    // Referências da interface
     public Image roletaNumeros;
     public RectTransform bolinha;
     public TMP_InputField inputAposta;
@@ -22,6 +23,7 @@ public class RoletaController : MonoBehaviour
 
     private bool aRodar = false;
 
+    // Ordem real dos números na roleta física europeia (37 números, incluindo o zero)
     private readonly int[] ordemRoleta = {
         0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6,
         27, 13, 36, 11, 30, 8, 23, 10, 5, 24,
@@ -40,8 +42,9 @@ public class RoletaController : MonoBehaviour
 
     void GirarRoleta()
     {
-        if (aRodar) return;
+        if (aRodar) return; // Impede múltiplos giros ao mesmo tempo
 
+        // Verifica se a aposta é válida
         if (!int.TryParse(inputAposta.text, out int valorAposta) || valorAposta <= 0)
         {
             textoResultado.text = "Valor de aposta inválido.";
@@ -68,33 +71,33 @@ public class RoletaController : MonoBehaviour
         textoResultado.text = "A girar...";
 
         if (somRoleta != null && audioSource != null)
-        {
             audioSource.PlayOneShot(somRoleta);
-        }
 
         float anguloInicial = roletaNumeros.rectTransform.eulerAngles.z;
-        float voltas = Random.Range(4f, 5f);
+        float voltas = Random.Range(4f, 5f); // Número de voltas aleatório
         float anguloTotal = voltas * 360f;
         float anguloFinal = anguloInicial + anguloTotal;
 
         float duracao = 3.5f;
         float tempo = 0f;
 
+        // Animação suave da rotação
         while (tempo < duracao)
         {
             tempo += Time.deltaTime;
             float t = tempo / duracao;
             float anguloAtual = Mathf.Lerp(anguloInicial, anguloFinal, EaseOut(t));
             roletaNumeros.rectTransform.rotation = Quaternion.Euler(0, 0, anguloAtual);
-            bolinha.rotation = Quaternion.Euler(0, 0, -anguloAtual * 1.5f);
+            bolinha.rotation = Quaternion.Euler(0, 0, -anguloAtual * 1.5f); // Efeito visual da bolinha
             yield return null;
         }
 
+        // Determina o número vencedor com base no ângulo final
         float anguloCorrigido = 360f - (anguloFinal % 360f);
         float anguloPorNumero = 360f / 37f;
 
         int indice = Mathf.RoundToInt(anguloCorrigido / anguloPorNumero) % 37;
-        indice = (37 - indice) % 37;
+        indice = (37 - indice) % 37; // Corrige o índice invertido
         int resultado = ordemRoleta[indice];
 
         VerificarAposta(resultado, valorAposta);
@@ -104,7 +107,7 @@ public class RoletaController : MonoBehaviour
 
     float EaseOut(float t)
     {
-        return 1 - Mathf.Pow(1 - t, 3);
+        return 1 - Mathf.Pow(1 - t, 3); // Suavização do movimento (ease-out cúbico)
     }
 
     void VerificarAposta(int resultado, int valorAposta)
@@ -119,6 +122,7 @@ public class RoletaController : MonoBehaviour
         if (resultado != 0)
             paridade = resultado % 2 == 0 ? "Par" : "Ímpar";
 
+        // Avaliação da aposta com base na escolha do jogador
         switch (aposta)
         {
             case "Verde":
@@ -166,9 +170,7 @@ public class RoletaController : MonoBehaviour
         if (ganhou)
         {
             if (somWin != null && audioSource != null)
-            {
                 audioSource.PlayOneShot(somWin);
-            }
 
             int ganho = valorAposta * multiplicador;
             GameManager.instancia.AdicionarDinheiro(ganho);
@@ -189,17 +191,17 @@ public class RoletaController : MonoBehaviour
     void AtualizarTextoSaldo()
     {
         if (textoSaldo != null)
-        {
             textoSaldo.text = $"Moedas: {GameManager.instancia.ObterDinheiro()}";
-        }
     }
 
+    // Determina se um número é preto
     bool NumeroPreto(int num)
     {
         int[] pretos = { 2, 4, 6, 8, 10, 11, 13, 15, 17, 20, 22, 24, 26, 28, 29, 31, 33, 35 };
         return System.Array.Exists(pretos, x => x == num);
     }
 
+    // Determina se um número é vermelho
     bool NumeroVermelho(int num)
     {
         int[] vermelhos = { 1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36 };
@@ -208,6 +210,6 @@ public class RoletaController : MonoBehaviour
 
     public void VoltarParaJogo()
     {
-        SceneManager.LoadScene("Jogo");
+        SceneManager.LoadScene("Jogo"); // Volta para a cena principal
     }
 }

@@ -2,16 +2,18 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instancia;
-    private int dinheiro = 1000;
+    public static GameManager instancia; // Singleton para acesso global ao GameManager
+    private int dinheiro = 1000; // Valor inicial de moedas
 
     private void Awake()
     {
+        // Garante que só existe uma instância do GameManager durante toda a execução do jogo
         if (instancia == null)
         {
             instancia = this;
-            DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject); // Impede que este objecto seja destruído ao mudar de cena
 
+            // Tenta carregar dados guardados (dinheiro e estados dos power-ups)
             var dados = SaveManager.CarregarJogo();
             if (dados != null)
             {
@@ -19,6 +21,7 @@ public class GameManager : MonoBehaviour
 
                 if (PowerUpManager.instancia != null)
                 {
+                    // Restaura os estados dos power-ups guardados
                     PowerUpManager.instancia.ganhoExtraAtivo = dados.ganhoExtraAtivo;
                     PowerUpManager.instancia.ganhoExtraPercentagem = dados.ganhoExtraPercentagem;
                     PowerUpManager.instancia.ganhoExtraDuracao = dados.ganhoExtraDuracao;
@@ -29,19 +32,20 @@ public class GameManager : MonoBehaviour
                     PowerUpManager.instancia.protecaoPerdaDuracao = dados.protecaoPerdaDuracao;
                     PowerUpManager.instancia.protecaoPerdaDataCompra = dados.protecaoPerdaDataCompra;
 
-                    // Verifica se já expiraram ao iniciar
+                    // Garante que não estão ativos se já expiraram
                     PowerUpManager.instancia.VerificarExpiracaoPowerUps();
                 }
             }
         }
         else
         {
-            Destroy(gameObject);
+            Destroy(gameObject); // Elimina duplicados se já existir uma instância
         }
     }
 
     public void AdicionarDinheiro(int valor)
     {
+        // Aplica o bónus de ganho caso o power-up esteja ativo
         if (PowerUpManager.instancia != null)
         {
             PowerUpManager.instancia.VerificarExpiracaoPowerUps();
@@ -49,11 +53,12 @@ public class GameManager : MonoBehaviour
         }
 
         dinheiro += valor;
-        Guardar();
+        Guardar(); // Guarda imediatamente o novo estado
     }
 
     public void RemoverDinheiro(int valor)
     {
+        // Aplica proteção contra perda se o power-up estiver ativo
         if (PowerUpManager.instancia != null)
         {
             PowerUpManager.instancia.VerificarExpiracaoPowerUps();
@@ -75,10 +80,11 @@ public class GameManager : MonoBehaviour
 
     public void DefinirDinheiro(int novoValor)
     {
-        dinheiro = Mathf.Max(0, novoValor);
+        dinheiro = Mathf.Max(0, novoValor); // Garante que nunca fica negativo
         Guardar();
     }
 
+    // Guarda o estado atual do jogo (moedas + estados dos power-ups)
     private void Guardar()
     {
         if (PowerUpManager.instancia != null)
@@ -97,6 +103,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            // Guarda apenas o dinheiro se não houver PowerUpManager disponível
             SaveManager.GuardarJogo(
                 dinheiro,
                 false, 0, "", "",
